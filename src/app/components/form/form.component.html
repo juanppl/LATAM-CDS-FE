@@ -1,0 +1,93 @@
+
+@if (product) {
+    <div class="form-container w-100">
+        <form #f="ngForm" class="form PrintArea py-4" ngNativeValidate (ngSubmit)="save()">
+        
+            <div class="mb-3 p-0 row">
+                <div class="text-left p-0 col-4 title2 my-auto">Full Name*</div>
+                <div class="p-0 col-8">
+                    <input class="w-100 form-control mr-2" type="text" [(ngModel)]="product!.fullName" required
+                        name="fullName" maxLength="50" autocomplete="off" max="50" />
+                </div>
+            </div>
+            <div class="mb-3 p-0 row">
+                <div class="text-left p-0 col-4 title2 my-auto">Display Name*</div>
+                <div class="p-0 col-8">
+                    <input class="w-100 form-control mr-2" type="text" [(ngModel)]="product!.displayName" 
+                        required name="displayName" maxLength="50" autocomplete="off" max="50" />
+                </div>
+            </div>
+            <div class="mb-3 p-0 row">
+                <div class="text-left p-0 col-4 title2 my-auto">Description*</div>
+                <div class="p-0 col-8">
+                    <textarea class="w-100 form-control mr-2" type="textarea" [(ngModel)]="product!.description" required
+                        name="description" maxLength="250" autocomplete="off" max="250" ></textarea>
+                </div>
+            </div>
+            <div class="mb-3 p-0 row">
+                <div class="text-left p-0 col-4 title2 my-auto">Price*</div>
+                <div class="p-0 col-8">
+                    <input class="w-100 form-control mr-2" type="number" [(ngModel)]="product!.price"
+                        required name="price" autocomplete="off" max="10000" />
+                </div>
+            </div>
+            <div class="mb-3 p-0 row">
+                <div class="text-left p-0 col-4 title2 my-auto">Is Active</div>
+                <div class="p-0 col-8">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" [(ngModel)]="product!.isActive"
+                            name="flexRadioDefault" id="flexRadioDefault1" [value]="true" checked>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Active
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" [(ngModel)]="product!.isActive"
+                            name="flexRadioDefault" id="flexRadioDefault2" [value]="false">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          Inactive
+                        </label>
+                      </div>
+                </div>
+            </div>
+            <div class="mb-3 p-0 row">
+                <div class="text-left p-0 col-4 title2 my-auto">Expire Date*</div>
+                <div class="p-0 col-8">
+                    <input class="w-100 form-control mr-2" type="date" [value]="product.expireDateAsString" (change)="assignExpireDate($event)" 
+                        name="expireDate" required />
+                </div>
+            </div>
+            <div class="mb-3 p-0 row">
+                <div class="text-left p-0 col-4 title2 my-auto">Category*</div>
+                <div class="p-0 col-8">
+                    <select class="form-select rounded py-1 w-100" name="category" placeholder="select" required
+                        [(ngModel)]="product!.categoryId" name="cateogrySelected">
+                        @for (category of categories; track $index) {
+                            <option [ngValue]="category.categoryId" >{{category.name}}</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 p-0 row">
+                <div class="text-left p-0 col-4 title2 my-auto">Available Qty*</div>
+                <div class="p-0 col-8">
+                    <input class="w-100 form-control mr-2" type="number" [(ngModel)]="product!.availableQty" 
+                        required name="availableQty" max="100" min="1" required/>
+                </div>
+            </div>
+            <div class="mb-3 p-0 row">
+                <div class="col-6 d-flex">
+                    <button class="btn btn-danger m-auto w-100" style="max-width: 250px;" (click)="cancel()">
+                        <div>Cancel</div>
+                    </button>
+                </div>
+                <div class="col-6 d-flex">
+                    <button class="btn btn-primary m-auto w-100" [disabled]="!f.valid"
+                        style="max-width: 250px;" type="submit">
+                        <div>Save</div>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+}

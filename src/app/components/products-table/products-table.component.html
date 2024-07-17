@@ -1,0 +1,43 @@
+<table class="table table-striped my-4">
+    <thead>
+        <tr>
+            <th scope="col" class="text-center align-middle">Full Name</th>
+            <th scope="col" class="text-center align-middle">Display Name</th>
+            <th scope="col" class="text-center align-middle">Price</th>
+            <th scope="col" class="text-center align-middle">Creation Date</th>
+            <th scope="col" class="text-center align-middle">Expiration Date</th>
+            <th scope="col" class="text-center align-middle">Category</th>
+            <th scope="col" class="text-center align-middle">Available Qty</th>
+            <th scope="col" class="text-center align-middle">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (products.length == 0) {
+            <td colspan="8" class="text-center py-3 fw-bold fs-4">No products found</td>
+        }
+
+        @if (products.length > 0) {
+            @for (product of products; track $index) {
+                <tr>
+                    <td class="text-center align-middle">{{ product.fullName }}</td>
+                    <td class="text-center align-middle">{{ product.displayName }}</td>
+                    <td class="text-center align-middle">{{ product.price | currency }}</td>
+                    <td class="text-center align-middle">{{ product.creationDate | date:'MM/dd/y'}}</td>
+                    <td class="text-center align-middle">{{ product.expireDate | date:'MM/dd/y' }}</td>
+                    <td class="text-center align-middle">{{ product.category!.name }}</td>
+                    <td class="text-center align-middle">{{ product.availableQty }}</td>
+                    <td class="text-center align-middle">
+                        <div class="d-flex justify-content-center align-items-center gap-1">
+                            <button type="button" class="btn btn-primary" (click)="editProduct(product)">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger" (click)="removeProduct(product)">
+                                <i class="fa-solid fa-trash"></i>          
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
